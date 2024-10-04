@@ -1,36 +1,53 @@
-# This is a basic workflow to help you get started with Actions
+# Flujo de trabajo CI/CD para un sistema de gobernanza basado en blockchain
 
-name: CI
+name: Governance System CI
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # Paso 1: Clonar el repositorio
       - uses: actions/checkout@v4
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      # Paso 2: Instalar Node.js para manejar scripts frontend
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      # Paso 3: Instalar dependencias (sin cambiar de directorio)
+      - name: Instalar dependencias
+        run: npm install
+
+      # Paso 4: Ejecutar linters y pruebas del frontend
+      - name: Ejecutar linters y pruebas del frontend
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          npm run lint
+          npm run test
+
+      # Paso 5: Instalar Hardhat
+      - name: Instalar Hardhat
+        run: |
+          npm install --save-dev hardhat
+
+      # Paso 6: Compilar contratos Solidity
+      - name: Compilar contratos Solidity
+        run: |
+          npx hardhat compile
+
+      # Paso 7: Ejecutar pruebas de contratos
+      - name: Ejecutar pruebas de contratos
+        run: |
+          npx hardhat test
+
+      # Paso 8: Notificar éxito
+      - name: Notificar éxito
+        run: echo "¡El sistema de gobernanza ha sido construido y desplegado exitosamente!"
