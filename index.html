@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altcoin Fund Governance Voting</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Altcoin Fund Governance Voting</h1>
+
+        <!-- Voting Form -->
+        <div id="votingForm">
+            <h2>Cast your vote</h2>
+            <label for="altcoin1">First Choice Altcoin:</label>
+            <select id="altcoin1"></select>
+
+            <label for="altcoin2">Second Choice Altcoin:</label>
+            <select id="altcoin2"></select>
+
+            <button id="submitVote">Submit Vote</button>
+        </div>
+
+        <!-- Confirmation Screen -->
+        <div id="confirmationScreen" class="hidden">
+            <h2>Confirmation</h2>
+            <p>You chose:</p>
+            <p>First Choice: <span id="firstChoiceConfirmation"></span></p>
+            <p>Second Choice: <span id="secondChoiceConfirmation"></span></p>
+            <button id="finalConfirm">Confirm Vote</button>
+            <button id="correctVote">Correct Vote</button>
+        </div>
+
+        <!-- Final Summary -->
+        <div id="finalSummary" class="hidden">
+            <h2>Thank you for voting!</h2>
+            <p>Your vote has been successfully submitted.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
